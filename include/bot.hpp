@@ -6,7 +6,11 @@
 class Bot
 {
 public:
-    void movecntrl(std::vector<vex::motor>& motors, int pct) {}
+    double WIDTH; //width in inches
+    double MAX_VELOCITY; //maximum velocity in mV
+    std::vector<vex::motor> leftMotors;
+    std::vector<vex::motor> rightMotors;
+    void movecntrl(std::vector<vex::motor>& motors, int pct);
 };
 
 #endif // BOT_HPP
