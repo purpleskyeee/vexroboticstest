@@ -7,6 +7,7 @@
 #include "odom.hpp"
 
 extern vex::controller Controller;
+extern vex::brain Brain;
 extern Bot bot;
 extern double axis3, axis1; // Controller axis values
 extern PID pid_forward; //TODO: FILL IN WITH CONSTRUCTOR VALUES
@@ -33,8 +34,17 @@ std::vector<motor> leftmotors = {lm1, lm2, lm3}; // Vector to hold motors
 //optical DistanceSensor = optical(PORT7); // Optical sensor for distance detection
 //optical ColorSensor = optical(PORT5); // Optical sensor for color detection
 
+extern inertial Imu; // Initialize the IMU on PORT1
+extern motor leftMotor; // Initialize the left motor on PORT2
+extern motor rightMotor; // Initialize the right motor on PORT3
 
-
-
+extern const double WHEEL_CIRCUMFERENCE = 3.75*M_PI; // Wheel circumference in inches
+extern const double GEAR_RATIO = 48/36; // Gear ratio
+extern const double MAX_VELOCITY = 128; // Maximum velocity in mV
+extern const double WIDTH = 12.592; // Width of the robot in inches
+extern double HEADING; //heading
+    
+extern vex::rotation RLRotation(PORT5);
+extern vex::rotation FBRotation(PORT4);
 
 #endif // DEFINITIONS_HPP

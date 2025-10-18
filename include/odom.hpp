@@ -3,12 +3,9 @@
 #include <vex.h>
 #include "pid.hpp"
 #include "bot.hpp"
+#include "definitions.hpp"
 #include <iostream>
 using namespace vex;
-
-extern inertial Imu; // Initialize the IMU on PORT1
-extern motor leftMotor; // Initialize the left motor on PORT2
-extern motor rightMotor; // Initialize the right motor on PORT3
 
 class odometry {
 public:

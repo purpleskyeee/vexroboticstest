@@ -42,15 +42,6 @@ void drivewhee()
   {
     
   }
-
-
-  if(axislft>0){
-    bot.movecntrl(leftmotors,axislft); //Turn right motor forward
-  }
-  else if(axislft<0)
-  {
-    bot.movecntrl(rightmotors,axislft); // Move left motor forward
-  }
   */
 }
 
@@ -58,8 +49,10 @@ void drivewhee()
 int main() 
 {
   // Prevent main from exiting with an infinite loop.
+  Odom.ResetPosition();
   while (true)
   {
+    Odom.Calculate();
     drivewhee(); // Call the drive function to control the robot
     wait(5, msec);
   }
