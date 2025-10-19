@@ -10,8 +10,8 @@ extern vex::controller Controller;
 extern vex::brain Brain;
 extern Bot bot;
 extern double axis3, axis1; // Controller axis values
-extern PID pid_forward; //TODO: FILL IN WITH CONSTRUCTOR VALUES
-extern PID pid_turn; //TODO: FILL IN WITH CONSTRUCTOR VALUES
+extern PID pid_forward(66.0, 66.0, 66.0, 50.0, 0.9); //TODO: FILL IN WITH CONSTRUCTOR VALUES THESE ARE TEMPORARY
+extern PID pid_turn(66.0, 66.0, 66.0, 50.0, 0.9); //TODO: FILL IN WITH CONSTRUCTOR VALUES
 extern odometry Odom;
 
 extern double Left_Power;
