@@ -41,10 +41,11 @@ extern motor rightMotor; // Initialize the right motor on PORT3
 extern const double WHEEL_CIRCUMFERENCE = 3.75*M_PI; // Wheel circumference in inches
 extern const double GEAR_RATIO = 48/36; // Gear ratio
 extern const double MAX_VELOCITY = 128; // Maximum velocity in mV
-extern const double WIDTH = 12.592; // Width of the robot in inches
+extern const double OFFSETL = ; // Left/front offset of the tracking wheel from center in inches
+extern const double OFFSETB = ; // Right/back offset of the tracking wheel from center in inches
 extern double HEADING; //heading
     
-extern vex::rotation RLRotation(PORT5);
-extern vex::rotation FBRotation(PORT4);
+extern vex::rotation FRONTRotation(PORT5);
+extern vex::rotation BACKRotation(PORT4);
 
 #endif // DEFINITIONS_HPP

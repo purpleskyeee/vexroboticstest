@@ -18,6 +18,8 @@ void PID::reset()
 
 void PID::SetTarget(double t) { target=t; }
 
+bool PID::Arrived(){return arrived;}
+
 double PID::calculatepower(double currpos)
 {
   double error = target - currpos; // Calculate the error between target and current position
@@ -25,12 +27,17 @@ double PID::calculatepower(double currpos)
   if(power > maxpower) power = maxpower; // Limit power to maximum value
   if(power < leastpower) power = leastpower; // Limit power to minimum value
 
-  if (fabs(error) > error_range) // Check if the motor position is less than target
+  if (fabs(error) < error_range) // Check if the motor position is less than target
+  {
+    arrived = true;
+    power=0;
+  }
+  else
   {
     last_error = currpos - target; // Calculate the error
     integral=(integral+last_error)*gamma; //calculate the integral with adjustments to keep integral value low
   }
-  else return power;
+  return power;
 }
 
 

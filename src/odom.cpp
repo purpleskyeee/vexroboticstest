@@ -22,31 +22,30 @@ void odometry::SetY(double y) { ODOMETRY_Y = y; }
 
 void odometry::SetAngle(double angle) { ODOMETRY_ANGLE = angle; }
 
+void ConstrainAngle(double& angle) 
+{
+    while (angle >= 2*M_PI) angle -= 2*M_PI;
+    while (angle < 0.0) angle += 2*M_PI;
+}
+
 
 void odometry::Calculate()
 {
-    double delta_x = encoder_to_inches(leftMotor.position(rotationUnits::deg) - last_left_pos);
-    double delta_y = encoder_to_inches(rightMotor.position(rotationUnits::deg) - last_right_pos);
-    double left_angle = leftMotor.position(rotationUnits::deg);
-    double right_angle = rightMotor.position(rotationUnits::deg);
+    double delta_l=encoder_to_inches(FRONTRotation.position(rotationUnits::deg)-last_front_pos); //from front tracking (currtracking wheel reading-last position)
+    double delta_b=encoder_to_inches(BACKRotation.position(rotationUnits::deg)-last_back_pos); //from back tracking (currtracking wheel reading-last position)
+    double delta_theta = Imu.heading(degrees)*M_PI/180.0+initial_heading;//from IMU (currheading-initial heading)-(last heading-initial heading)
+    ConstrainAngle(delta_theta);
 
-    double distance=(delta_x + delta_y) / 2.0;
+    double local_y=2*(delta_l/delta_theta+OFFSETL)*sin(delta_theta/2);
+    double local_x=2*(delta_b/delta_theta+OFFSETB)*sin(delta_theta/2);
 
-    double raw_heading = Imu.heading(rotationUnits::deg);
-    HEADING = raw_heading + initial_heading;
-    HEADING = fmod(HEADING, 360.0); // Normalize heading to [0, 360)
-
-    if(HEADING < 0)
-    {
-        HEADING += 360.0; // Ensure heading is positive
-    }
-
-    ODOMETRY_X += distance * sin(HEADING);
-    ODOMETRY_Y += distance * cos(HEADING);
-
-
-    last_left_pos = leftMotor.position(rotationUnits::deg);
-    last_right_pos = rightMotor.position(rotationUnits::deg);
+    double avg_theta=ODOMETRY_ANGLE+delta_theta/2;
+    ODOMETRY_X+=local_x*cos(avg_theta)-local_y*sin(avg_theta);
+    ODOMETRY_Y+=local_x*sin(avg_theta)+local_y*cos(avg_theta);
+    ODOMETRY_ANGLE+=delta_theta;
+    last_front_pos=FRONTRotation.position(rotationUnits::deg);
+    last_back_pos=BACKRotation.position(rotationUnits::deg);
+    ConstrainAngle(ODOMETRY_ANGLE);
 }
 
 void odometry::ResetPosition()
@@ -54,8 +53,8 @@ void odometry::ResetPosition()
     ODOMETRY_X = 0.0; // Reset x position
     ODOMETRY_Y = 0.0; // Reset y position
     HEADING = 0.0; // Reset angle
-    last_left_pos = 0.0;
-    last_right_pos = 0.0; // Reset last positions
+    last_front_pos = 0.0;
+    last_back_pos = 0.0; // Reset last positions
     initial_heading = 0.0;
     Imu.setHeading(0, rotationUnits::deg); // Reset IMU heading
 }
