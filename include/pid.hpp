@@ -20,12 +20,12 @@ public:
     PID(double kp, double kd, double ki, double error_range, double gamma)
         : kp(kp), kd(kd), ki(ki), error_range(error_range), last_error(0), integral(0), gamma(gamma), leastpower(0), maxpower(100), target(0), arrived(false) {}
 
-    void reset(){}
+    void reset();
     
-    void SetTarget(double t){}
+    void SetTarget(double t);
 
-    bool Arrived(){}
+    bool Arrived();
 
-    double calculatepower(double target){};
+    double calculatepower(double target);
 };
 #endif //PID_HPP

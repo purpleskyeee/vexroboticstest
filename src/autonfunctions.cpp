@@ -1,8 +1,6 @@
 #include "definitions.hpp"
-#include "pathing.hpp"
 #include "odom.hpp"
 #include "pid.hpp"
-#include "bot.hpp"
 
 void pidForward(double target)
 {

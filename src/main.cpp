@@ -6,14 +6,12 @@
 #include <vector>
 using namespace vex;
 
-PID pid;
-
 void drivewhee()
 {
   axis3=Controller.Axis3.position();
   axis1=Controller.Axis1.position();
-  int Right_Power=axis3-axis1;
-  int Left_Power=axis3+axis1;
+  Right_Power=axis3-axis1;
+  Left_Power=axis3+axis1;
   if(Right_Power>128) Right_Power=128;
   if(Right_Power<-128) Right_Power=-128;
   if(Left_Power>128) Left_Power=128;
@@ -54,6 +52,7 @@ int main()
   {
     Odom.Calculate();
     drivewhee(); // Call the drive function to control the robot
+    std::cout<<"X: " << Odom.GetX() << ", Y: " << Odom.GetY() << ", Angle: " << Odom.GetAngle() << std::endl; // Print odometry values for debugging
     wait(5, msec);
   }
 

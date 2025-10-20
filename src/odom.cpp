@@ -22,7 +22,7 @@ void odometry::SetY(double y) { ODOMETRY_Y = y; }
 
 void odometry::SetAngle(double angle) { ODOMETRY_ANGLE = angle; }
 
-void ConstrainAngle(double& angle) 
+void odometry::ConstrainAngle(double& angle) 
 {
     while (angle >= 2*M_PI) angle -= 2*M_PI;
     while (angle < 0.0) angle += 2*M_PI;

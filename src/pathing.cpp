@@ -7,8 +7,7 @@
 #include <math.h>
 #include <cmath>
 using namespace vex;
-//odometry Odom;
-//Bot bot;
+
 void pathing::FollowPath(int a, int b, int c, int d, int lookahead, int tolerance) 
 {
     /*

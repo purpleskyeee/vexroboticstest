@@ -5,47 +5,43 @@
 #include "pid.hpp"
 #include "bot.hpp"
 #include "odom.hpp"
+#include <vector>
+
+using namespace vex;
 
 extern vex::controller Controller;
 extern vex::brain Brain;
 extern Bot bot;
-extern double axis3, axis1; // Controller axis values
-extern PID pid_forward(66.0, 66.0, 66.0, 50.0, 0.9); //TODO: FILL IN WITH CONSTRUCTOR VALUES THESE ARE TEMPORARY
-extern PID pid_turn(66.0, 66.0, 66.0, 50.0, 0.9); //TODO: FILL IN WITH CONSTRUCTOR VALUES
+extern double axis3;
+extern double axis1;
+
+extern PID pid_forward;
+extern PID pid_turn;
+
 extern odometry Odom;
 
 extern double Left_Power;
 extern double Right_Power;
 
-controller Controller =controller();
-Bot bot;
-double axis3=Controller.Axis3.position(), axis1=Controller.Axis1.position(); // Controller axis values
+extern vex::motor lm1;
+extern vex::motor rm1;
+extern vex::motor lm2;
+extern vex::motor rm2;
+extern vex::motor lm3;
+extern vex::motor rm3;
 
-motor lm1=motor(PORT10,vex::gearSetting::ratio6_1,1),
-rm1=motor(PORT1,vex::gearSetting::ratio6_1,0),
-lm2=motor(PORT9,vex::gearSetting::ratio6_1,1),
-rm2=motor(PORT2,vex::gearSetting::ratio6_1,0),
-lm3=motor(PORT8,vex::gearSetting::ratio6_1,1),
-rm3=motor(PORT3,vex::gearSetting::ratio6_1,0); // Right and Left motors
+extern std::vector<vex::motor> rightmotors;
+extern std::vector<vex::motor> leftmotors;
 
-std::vector<motor> rightmotors = {rm1, rm2, rm3}; // Vector to hold motors
-std::vector<motor> leftmotors = {lm1, lm2, lm3}; // Vector to hold motors
+extern vex::inertial Imu;
+extern vex::rotation FRONTRotation;
+extern vex::rotation BACKRotation;
 
-//optical DistanceSensor = optical(PORT7); // Optical sensor for distance detection
-//optical ColorSensor = optical(PORT5); // Optical sensor for color detection
-
-extern inertial Imu; // Initialize the IMU on PORT1
-extern motor leftMotor; // Initialize the left motor on PORT2
-extern motor rightMotor; // Initialize the right motor on PORT3
-
-extern const double WHEEL_CIRCUMFERENCE = 3.75*M_PI; // Wheel circumference in inches
-extern const double GEAR_RATIO = 48/36; // Gear ratio
-extern const double MAX_VELOCITY = 128; // Maximum velocity in mV
-extern const double OFFSETL = ; // Left/front offset of the tracking wheel from center in inches
-extern const double OFFSETB = ; // Right/back offset of the tracking wheel from center in inches
-extern double HEADING; //heading
-    
-extern vex::rotation FRONTRotation(PORT5);
-extern vex::rotation BACKRotation(PORT4);
+extern const double WHEEL_CIRCUMFERENCE;
+extern const double GEAR_RATIO;
+extern const double MAX_VELOCITY;
+extern const double OFFSETL;
+extern const double OFFSETB;
+extern double HEADING;
 
 #endif // DEFINITIONS_HPP

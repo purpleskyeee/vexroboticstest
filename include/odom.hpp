@@ -3,37 +3,40 @@
 #include <vex.h>
 #include "pid.hpp"
 #include "bot.hpp"
-#include "definitions.hpp"
 #include <iostream>
 using namespace vex;
 
-class odometry {
+class odometry
+{
 public:
-    double ODOMETRY_X = 0.0; // Current x position of the robot (global)
-    double ODOMETRY_Y = 0.0; // Current y position of the robot (global)
-    double ODOMETRY_ANGLE = 0.0; // Current angle of the robot in degrees (global)
-    double initial_heading = 0.0;
-    double last_front_pos = 0.0;
-    double last_back_pos = 0.0;
+    double ODOMETRY_X; // Current x position of the robot (global)
+    double ODOMETRY_Y; // Current y position of the robot (global)
+    double ODOMETRY_ANGLE; // Current angle of the robot in degrees (global)
+    double initial_heading;
+    double last_front_pos;
+    double last_back_pos;
 
-    double odometry::encoder_to_inches(double encoder_counts) {}
+    odometry(double x, double y, double angle)
+        : ODOMETRY_X(x), ODOMETRY_Y(y), ODOMETRY_ANGLE(angle), initial_heading(0), last_front_pos(0), last_back_pos(0) {}
 
-    double GetX() {}
+    double encoder_to_inches(double encoder_counts);
 
-    double GetY() {}
+    double GetX();
+
+    double GetY();
     
-    double GetAngle() {}
+    double GetAngle();
 
-    void SetX(double x) {}
+    void SetX(double x);
 
-    void SetY(double y) {}
+    void SetY(double y);
     
-    void SetAngle(double angle) {}
+    void SetAngle(double angle);
 
-    void ConstrainAngle(double& angle) {}
+    void ConstrainAngle(double& angle);
 
-    void Calculate() {}
+    void Calculate();
 
-    void ResetPosition() {}
+    void ResetPosition();
 };
 #endif //ODOM_HPP
