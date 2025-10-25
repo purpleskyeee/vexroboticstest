@@ -46,14 +46,14 @@ void drivewhee()
 
 void awpautonrightred()
 {
-  toungemech.close(); //put down toungemech
+  tonguemech.close(); //put down tonguemech
   pidForward(24); //forward 1 tile
   pidTurn(-90); //face loader
   intakeMotor1.spinFor(2,vex::timeUnits::sec); //intake for certain amount of time (just use movemotor group on this)
   intakeMotor2.spinFor(2,vex::timeUnits::sec); //intake for certain amount of time (just use movemotor group on this)
 
   pidForward(-24); //back 1 tile so aligner hits long goal
-  toungemech.open();//put up toungemech
+  tonguemech.open();//put up tonguemech
   intakeMotor1.spinFor(2,vex::timeUnits::sec); //outtake on top for certain amount of time
   intakeMotor2.spinFor(2,vex::timeUnits::sec); //outtake on top for certain amount of time
 
@@ -70,13 +70,13 @@ void awpautonrightred()
   intakeMotor2.spinFor(2,vex::timeUnits::sec); //outtake mid for 3 ball time
   intakeMotor1.setReversed(true);
 
-  toungemech.close();//toungemech down
+  tonguemech.close();//tonguemech down
   pidForward(72); //go to 2nd loader
   intakeMotor1.spinFor(2,vex::timeUnits::sec); //intake for certain amount of time (just use movemotor group on this)
   intakeMotor2.spinFor(2,vex::timeUnits::sec); //intake for certain amount of time (just use movemotor group on this)
 
   pidForward(-24); //to 2nd long goal
-  toungemech.open();//put up toungemech
+  tonguemech.open();//put up tonguemech
   intakeMotor1.spinFor(2,vex::timeUnits::sec); //outtake on top for certain amount of time
   intakeMotor2.spinFor(2,vex::timeUnits::sec); //outtake on top for certain amount of time
 }

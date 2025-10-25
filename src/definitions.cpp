@@ -32,8 +32,8 @@ std::vector<vex::motor> leftmotors  = { lm1, lm2, lm3 };
 vex::motor intakeMotor1 = vex::motor(vex::PORT6, vex::gearSetting::ratio6_1, true); //temp
 vex::motor intakeMotor2= vex::motor(vex::PORT7, vex::gearSetting::ratio6_1, true); //temp
 
-pneumatics toungemech(Brain.ThreeWirePort.H); //temp
-bool toungemechdown=false;
+pneumatics tonguemech(Brain.ThreeWirePort.H); //temp
+bool tonguemechdown=false;
 
 pneumatics park(Brain.ThreeWirePort.E); //temp
 

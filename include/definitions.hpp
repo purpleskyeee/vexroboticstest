@@ -36,8 +36,8 @@ extern std::vector<vex::motor> leftmotors;
 extern vex::motor intakeMotor1;
 extern vex::motor intakeMotor2;
 
-extern pneumatics toungemech;
-extern bool toungemechdown;
+extern pneumatics tonguemech;
+extern bool tonguemechdown;
 
 extern pneumatics park;
 
