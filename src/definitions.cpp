@@ -29,6 +29,14 @@ vex::motor rm3 = vex::motor(vex::PORT3,  vex::gearSetting::ratio6_1, false);
 std::vector<vex::motor> rightmotors = { rm1, rm2, rm3 };
 std::vector<vex::motor> leftmotors  = { lm1, lm2, lm3 };
 
+vex::motor intakeMotor1 = vex::motor(vex::PORT6, vex::gearSetting::ratio6_1, true); //temp
+vex::motor intakeMotor2= vex::motor(vex::PORT7, vex::gearSetting::ratio6_1, true); //temp
+
+pneumatics toungemech(Brain.ThreeWirePort.H); //temp
+bool toungemechdown=false;
+
+pneumatics park(Brain.ThreeWirePort.E); //temp
+
 vex::inertial Imu = vex::inertial(vex::PORT1);
 vex::rotation FRONTRotation = vex::rotation(vex::PORT5);
 vex::rotation BACKRotation  = vex::rotation(vex::PORT4);

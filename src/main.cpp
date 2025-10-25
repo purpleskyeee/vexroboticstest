@@ -2,6 +2,7 @@
 #include "bot.hpp"
 #include "pid.hpp"
 #include "definitions.hpp"
+#include "autonfunctions.hpp"
 #include <iostream>
 #include <vector>
 using namespace vex;
@@ -43,6 +44,42 @@ void drivewhee()
   */
 }
 
+void awpautonrightred()
+{
+  toungemech.close(); //put down toungemech
+  pidForward(24); //forward 1 tile
+  pidTurn(-90); //face loader
+  intakeMotor1.spinFor(2,vex::timeUnits::sec); //intake for certain amount of time (just use movemotor group on this)
+  intakeMotor2.spinFor(2,vex::timeUnits::sec); //intake for certain amount of time (just use movemotor group on this)
+
+  pidForward(-24); //back 1 tile so aligner hits long goal
+  toungemech.open();//put up toungemech
+  intakeMotor1.spinFor(2,vex::timeUnits::sec); //outtake on top for certain amount of time
+  intakeMotor2.spinFor(2,vex::timeUnits::sec); //outtake on top for certain amount of time
+
+  pidTurn(-90); //turn to the dihhs
+  intakeMotor1.spin(vex::directionType::fwd,128,vex::voltageUnits::mV); //start intake
+  intakeMotor2.spin(vex::directionType::fwd,128,vex::voltageUnits::mV); //start intake
+  pidForward(72); //collect all
+  intakeMotor1.spin(vex::directionType::fwd,0,vex::voltageUnits::mV); //start intake
+  intakeMotor2.spin(vex::directionType::fwd,0,vex::voltageUnits::mV); //start intake
+
+  pidTurn(45); //butt face mid goal
+  intakeMotor1.setReversed(false);
+  intakeMotor1.spinFor(2,vex::timeUnits::sec); //outtake mid for 3 ball time
+  intakeMotor2.spinFor(2,vex::timeUnits::sec); //outtake mid for 3 ball time
+  intakeMotor1.setReversed(true);
+
+  toungemech.close();//toungemech down
+  pidForward(72); //go to 2nd loader
+  intakeMotor1.spinFor(2,vex::timeUnits::sec); //intake for certain amount of time (just use movemotor group on this)
+  intakeMotor2.spinFor(2,vex::timeUnits::sec); //intake for certain amount of time (just use movemotor group on this)
+
+  pidForward(-24); //to 2nd long goal
+  toungemech.open();//put up toungemech
+  intakeMotor1.spinFor(2,vex::timeUnits::sec); //outtake on top for certain amount of time
+  intakeMotor2.spinFor(2,vex::timeUnits::sec); //outtake on top for certain amount of time
+}
 
 int main() 
 {
@@ -50,7 +87,7 @@ int main()
   Odom.ResetPosition();
   while (true)
   {
-    Odom.Calculate();
+    Odom.Calculate(); 
     drivewhee(); // Call the drive function to control the robot
     std::cout<<"X: " << Odom.GetX() << ", Y: " << Odom.GetY() << ", Angle: " << Odom.GetAngle() << std::endl; // Print odometry values for debugging
     wait(5, msec);

@@ -33,6 +33,7 @@ void turnconstrainangle(double& angle)
 void pidTurn(double target)
 {
     double startheading=Odom.GetAngle();
+    target/=180*M_PI;
     turnconstrainangle(target);
     turnconstrainangle(startheading);
     double currentheading=0;

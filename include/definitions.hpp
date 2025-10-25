@@ -33,6 +33,14 @@ extern vex::motor rm3;
 extern std::vector<vex::motor> rightmotors;
 extern std::vector<vex::motor> leftmotors;
 
+extern vex::motor intakeMotor1;
+extern vex::motor intakeMotor2;
+
+extern pneumatics toungemech;
+extern bool toungemechdown;
+
+extern pneumatics park;
+
 extern vex::inertial Imu;
 extern vex::rotation FRONTRotation;
 extern vex::rotation BACKRotation;
