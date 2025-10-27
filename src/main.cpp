@@ -17,31 +17,91 @@ void drivewhee()
   if(Right_Power<-128) Right_Power=-128;
   if(Left_Power>128) Left_Power=128;
   if(Left_Power<-128) Left_Power=-128;
-  //bool intake=Controller.ButtonR1.pressing(); // Check if the intake button is pressed
-  //bool outtake=Controller.ButtonR2.pressing(); // Check if the outtake button is pressed
-  //bool eat = Controller.ButtonL1.pressing(); // Check if the eat button is pressed
+  bool intake=Controller.ButtonR1.pressing(); // Check if the intake button is pressed
+  bool outtake=Controller.ButtonR2.pressing(); // Check if the outtake button is pressed
+
+  bool rubberbandtoggle=Controller.ButtonY.pressing(); // Check if the rubberband toggle button is pressed
+  bool middescoretoggle=Controller.ButtonA.pressing(); // Check if the middescore toggle button is pressed
+  bool parking=Controller.ButtonX.pressing(); // Check if the parking button is pressed
+  bool tonguemechtoggle=Controller.ButtonB.pressing(); // Check if the tonguemech toggle button is pressed
+  bool hoodtoggle=Controller.ButtonL2.pressing(); // Check if the hood toggle button is
   
 
   std::cout<<"Axis Up: " << axis3 << ", Axis Left: " << axis1 << std::endl; // Print axis values for debugging
   // Use the controller axis values to control the motors
   bot.movecntrl(leftmotors,Left_Power); // Move left motor 
   bot.movecntrl(rightmotors,Right_Power); // Move right motor
-/*
+
+  if(tonguemechtoggle && !tonguemechdown)
+  {
+    tonguemech.open(); //put down tonguemech
+    tonguemechdown=true;
+  }
+  else if(tonguemechtoggle && tonguemechdown)
+  {
+    tonguemech.close(); //put up tonguemech
+    tonguemechdown=false;
+  }
+
+  if(parking && !parked)
+  {
+    park.open(); //put down parking mech
+    parked=true;
+  }
+  else if(parking && parked)
+  {
+    park.close(); //put up parking mech
+    parked=false;
+  }
+
+  if(rubberbandtoggle && !rubberbandon) //open and close aren't tested for the next three
+  {
+    rubberband.open(); //activate rubberband mech
+    rubberbandon=true;
+  }
+  else if(rubberbandtoggle && rubberbandon)
+  {
+    rubberband.close(); //deactivate rubberband mech
+    rubberbandon=false;
+  }
+
+  if(middescoretoggle && !middescoreon)
+  {
+    middescore.open(); //activate middescore mech
+    middescoreon=true;
+  }
+  else if(middescoretoggle && middescoreon)
+  {
+    middescore.close(); //deactivate middescore mech
+    middescoreon=false;
+  }
+
+  if(hoodtoggle && !hoodon)
+  {
+    hood.open(); //activate hood mech
+    hoodon=true;
+  }
+  else if(hoodtoggle && hoodon)
+  {
+    hood.close(); //deactivate hood mech
+    hoodon=false;
+  }
+
   if(intake)
   {
     bot.movecntrl(intakeMotors, 128); // Start intake motors at 128
   }
 
-  if(outtake)
+  else if(outtake)
   {
     bot.movecntrl(intakeMotors, -128); // Start outtake motors at -128
   }
-  
-  if(eat)
+
+  else 
   {
-    
+    bot.movecntrl(intakeMotors, 0); // Stop intake motors
   }
-  */
+
 }
 
 void awpautonrightred()
