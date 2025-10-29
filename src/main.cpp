@@ -17,8 +17,8 @@ void drivewhee()
   if(Right_Power<-128) Right_Power=-128;
   if(Left_Power>128) Left_Power=128;
   if(Left_Power<-128) Left_Power=-128;
-  bool intake=Controller.ButtonR1.pressing(); // Check if the intake button is pressed
-  bool outtake=Controller.ButtonR2.pressing(); // Check if the outtake button is pressed
+  bool intake=Controller.ButtonR2.pressing(); // Check if the intake button is pressed
+  bool outtake=Controller.ButtonR1.pressing(); // Check if the outtake button is pressed
 
   bool rubberbandtoggle=Controller.ButtonY.pressing(); // Check if the rubberband toggle button is pressed
   bool middescoretoggle=Controller.ButtonA.pressing(); // Check if the middescore toggle button is pressed
@@ -31,7 +31,7 @@ void drivewhee()
   // Use the controller axis values to control the motors
   bot.movecntrl(leftmotors,Left_Power); // Move left motor 
   bot.movecntrl(rightmotors,Right_Power); // Move right motor
-
+/*
   if(tonguemechtoggle && !tonguemechdown)
   {
     tonguemech.open(); //put down tonguemech
@@ -75,33 +75,37 @@ void drivewhee()
     middescore.close(); //deactivate middescore mech
     middescoreon=false;
   }
-
-  if(hoodtoggle && !hoodon)
+*/
+  if(hoodtoggle)
   {
-    hood.open(); //activate hood mech
-    hoodon=true;
+    hoodMotor.spin(vex::directionType::fwd, 12800, vex::voltageUnits::mV); // Start hood motor at 128
   }
-  else if(hoodtoggle && hoodon)
+  else 
   {
-    hood.close(); //deactivate hood mech
-    hoodon=false;
+    hoodMotor.stop(); // Stop hood motor
   }
+    
 
   if(intake)
   {
-    bot.movecntrl(intakeMotors, 128); // Start intake motors at 128
+    std::cout<<"intake"<<std::endl;
+    intakeMotor.setReversed(false);
+    intakeMotor.spin(vex::directionType::fwd, 12800, vex::voltageUnits::mV); // Start intake motors at 128
   }
 
   else if(outtake)
   {
-    bot.movecntrl(intakeMotors, -128); // Start outtake motors at -128
+    std::cout<<"outntake"<<std::endl;
+    intakeMotor.spin(vex::directionType::rev, 12800, vex::voltageUnits::mV); // Start outtake motors at -128
   }
 
   else 
   {
-    bot.movecntrl(intakeMotors, 0); // Stop intake motors
+    intakeMotor.stop(); // Stop intake motors
   }
 
+  std::cout<<"Intake Button: " << intake << ", Outtake Button: " << outtake << std::endl; // Print button states for debugging
+  std::cout<<"hood: " << hoodtoggle << std::endl;
 }
 
 void awpautonrightred()
@@ -109,36 +113,30 @@ void awpautonrightred()
   tonguemech.close(); //put down tonguemech
   pidForward(24); //forward 1 tile
   pidTurn(-90); //face loader
-  intakeMotor1.spinFor(2,vex::timeUnits::sec); //intake for certain amount of time (just use movemotor group on this)
-  intakeMotor2.spinFor(2,vex::timeUnits::sec); //intake for certain amount of time (just use movemotor group on this)
+  intakeMotor.spinFor(2,vex::timeUnits::sec); //intake for certain amount of time (just use movemotor group on this)
 
   pidForward(-24); //back 1 tile so aligner hits long goal
   tonguemech.open();//put up tonguemech
-  intakeMotor1.spinFor(2,vex::timeUnits::sec); //outtake on top for certain amount of time
-  intakeMotor2.spinFor(2,vex::timeUnits::sec); //outtake on top for certain amount of time
+  intakeMotor.spinFor(2,vex::timeUnits::sec); //outtake on top for certain amount of time
+  hoodMotor.spinFor(2,vex::timeUnits::sec); //spin hood for a bit to get it ready
 
   pidTurn(-90); //turn to the dihhs
-  intakeMotor1.spin(vex::directionType::fwd,128,vex::voltageUnits::mV); //start intake
-  intakeMotor2.spin(vex::directionType::fwd,128,vex::voltageUnits::mV); //start intake
+  intakeMotor.spin(vex::directionType::fwd,128,vex::voltageUnits::mV); //start intake
   pidForward(72); //collect all
-  intakeMotor1.spin(vex::directionType::fwd,0,vex::voltageUnits::mV); //start intake
-  intakeMotor2.spin(vex::directionType::fwd,0,vex::voltageUnits::mV); //start intake
+  intakeMotor.spin(vex::directionType::fwd,0,vex::voltageUnits::mV); //start intake
 
   pidTurn(45); //butt face mid goal
-  intakeMotor1.setReversed(false);
-  intakeMotor1.spinFor(2,vex::timeUnits::sec); //outtake mid for 3 ball time
-  intakeMotor2.spinFor(2,vex::timeUnits::sec); //outtake mid for 3 ball time
-  intakeMotor1.setReversed(true);
+  intakeMotor.spinFor(2,vex::timeUnits::sec); //outtake mid for 3 ball time
+  hoodMotor.spinFor(2,vex::timeUnits::sec); //outtake mid for 3 ball time
 
   tonguemech.close();//tonguemech down
   pidForward(72); //go to 2nd loader
-  intakeMotor1.spinFor(2,vex::timeUnits::sec); //intake for certain amount of time (just use movemotor group on this)
-  intakeMotor2.spinFor(2,vex::timeUnits::sec); //intake for certain amount of time (just use movemotor group on this)
+  intakeMotor.spinFor(2,vex::timeUnits::sec); //intake for certain amount of time (just use movemotor group on this)
 
   pidForward(-24); //to 2nd long goal
   tonguemech.open();//put up tonguemech
-  intakeMotor1.spinFor(2,vex::timeUnits::sec); //outtake on top for certain amount of time
-  intakeMotor2.spinFor(2,vex::timeUnits::sec); //outtake on top for certain amount of time
+  intakeMotor.spinFor(2,vex::timeUnits::sec); //outtake on top for certain amount of time
+  hoodMotor.spinFor(2,vex::timeUnits::sec); //outtake on top for certain amount of time
 }
 
 int main() 
@@ -147,9 +145,9 @@ int main()
   Odom.ResetPosition();
   while (true)
   {
-    Odom.Calculate(); 
+    //Odom.Calculate(); 
     drivewhee(); // Call the drive function to control the robot
-    std::cout<<"X: " << Odom.GetX() << ", Y: " << Odom.GetY() << ", Angle: " << Odom.GetAngle() << std::endl; // Print odometry values for debugging
+    //std::cout<<"X: " << Odom.GetX() << ", Y: " << Odom.GetY() << ", Angle: " << Odom.GetAngle() << std::endl; // Print odometry values for debugging
     wait(5, msec);
   }
 

@@ -19,23 +19,30 @@ double Left_Power = 0;
 double Right_Power = 0;
 
 // Motors (use vex::PORTx)
-vex::motor lm1 = vex::motor(vex::PORT10, vex::gearSetting::ratio6_1, true);
-vex::motor rm1 = vex::motor(vex::PORT1,  vex::gearSetting::ratio6_1, false);
-vex::motor lm2 = vex::motor(vex::PORT9,  vex::gearSetting::ratio6_1, true);
-vex::motor rm2 = vex::motor(vex::PORT2,  vex::gearSetting::ratio6_1, false);
-vex::motor lm3 = vex::motor(vex::PORT8,  vex::gearSetting::ratio6_1, true);
-vex::motor rm3 = vex::motor(vex::PORT3,  vex::gearSetting::ratio6_1, false);
+vex::motor lm1 = vex::motor(vex::PORT1, vex::gearSetting::ratio6_1, true);
+vex::motor rm1 = vex::motor(vex::PORT11,  vex::gearSetting::ratio6_1, false);
+vex::motor lm2 = vex::motor(vex::PORT2,  vex::gearSetting::ratio6_1, true);
+vex::motor rm2 = vex::motor(vex::PORT12,  vex::gearSetting::ratio6_1, false);
+vex::motor lm3 = vex::motor(vex::PORT3,  vex::gearSetting::ratio6_1, true);
+vex::motor rm3 = vex::motor(vex::PORT13,  vex::gearSetting::ratio6_1, false);
 
 std::vector<vex::motor> rightmotors = { rm1, rm2, rm3 };
 std::vector<vex::motor> leftmotors  = { lm1, lm2, lm3 };
 
-vex::motor intakeMotor1 = vex::motor(vex::PORT6, vex::gearSetting::ratio6_1, true); //temp
-vex::motor intakeMotor2= vex::motor(vex::PORT7, vex::gearSetting::ratio6_1, true); //temp
+vex::motor intakeMotor = vex::motor(vex::PORT14, vex::gearSetting::ratio6_1, false);
+vex::motor hoodMotor = vex::motor(vex::PORT15, vex::gearSetting::ratio6_1, false);
 
 pneumatics tonguemech(Brain.ThreeWirePort.H); //temp
 bool tonguemechdown=false;
 
 pneumatics park(Brain.ThreeWirePort.E); //temp
+bool parked=false;
+
+pneumatics rubberband(Brain.ThreeWirePort.F); //temp
+bool rubberbandon=false;
+
+pneumatics middescore(Brain.ThreeWirePort.G); //temp
+bool middescoreon=false;
 
 vex::inertial Imu = vex::inertial(vex::PORT1);
 vex::rotation FRONTRotation = vex::rotation(vex::PORT5);
