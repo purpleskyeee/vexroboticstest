@@ -118,7 +118,7 @@ void awpautonrightred()
   pidForward(-24); //back 1 tile so aligner hits long goal
   tonguemech.open();//put up tonguemech
   intakeMotor.spinFor(2,vex::timeUnits::sec); //outtake on top for certain amount of time
-  hoodMotor.spinFor(2,vex::timeUnits::sec); //spin hood for a bit to get it ready
+  hoodMotor.spinFor(2,vex::timeUnits::sec); //outtake on top for certain amount of time
 
   pidTurn(-90); //turn to the dihhs
   intakeMotor.spin(vex::directionType::fwd,128,vex::voltageUnits::mV); //start intake
@@ -126,7 +126,7 @@ void awpautonrightred()
   intakeMotor.spin(vex::directionType::fwd,0,vex::voltageUnits::mV); //start intake
 
   pidTurn(45); //butt face mid goal
-  intakeMotor.spinFor(2,vex::timeUnits::sec); //outtake mid for 3 ball time
+  intakeMotor.spinFor(2,vex::timeUnits::sec); //outtake mid for 3 ball time //TEMPPPPP
   hoodMotor.spinFor(2,vex::timeUnits::sec); //outtake mid for 3 ball time
 
   tonguemech.close();//tonguemech down

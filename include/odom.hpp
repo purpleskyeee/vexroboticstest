@@ -13,8 +13,8 @@ public:
     double ODOMETRY_Y; // Current y position of the robot (global)
     double ODOMETRY_ANGLE; // Current angle of the robot in degrees (global)
     double initial_heading;
-    double last_front_pos;
-    double last_back_pos;
+    double last_front_pos; //in the case of no tracking wheels, this is left encoder avg
+    double last_back_pos; //in the case of no tracking wheels, this is right encoder avg
 
     odometry(double x, double y, double angle)
         : ODOMETRY_X(x), ODOMETRY_Y(y), ODOMETRY_ANGLE(angle), initial_heading(0), last_front_pos(0), last_back_pos(0) {}
@@ -35,7 +35,9 @@ public:
 
     void ConstrainAngle(double& angle);
 
-    void Calculate();
+    void CalculateWithTracking();
+
+    void CalculateWithoutTracking();
 
     void ResetPosition();
 };

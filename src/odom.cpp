@@ -29,7 +29,7 @@ void odometry::ConstrainAngle(double& angle)
 }
 
 
-void odometry::Calculate()
+void odometry::CalculateWithTracking()
 {
     double delta_l=encoder_to_inches(FRONTRotation.position(rotationUnits::deg)-last_front_pos); //from front tracking (currtracking wheel reading-last position)
     double delta_b=encoder_to_inches(BACKRotation.position(rotationUnits::deg)-last_back_pos); //from back tracking (currtracking wheel reading-last position)
@@ -46,6 +46,28 @@ void odometry::Calculate()
     last_front_pos=FRONTRotation.position(rotationUnits::deg);
     last_back_pos=BACKRotation.position(rotationUnits::deg);
     ConstrainAngle(ODOMETRY_ANGLE);
+}
+
+void odometry::CalculateWithoutTracking()
+{
+    double left_pos=encoder_to_inches((lm1.position(rotationUnits::deg)+lm2.position(rotationUnits::deg)+lm3.position(rotationUnits::deg))/3.0);
+    double right_pos=encoder_to_inches((rm1.position(rotationUnits::deg)+rm2.position(rotationUnits::deg)+rm3.position(rotationUnits::deg))/3.0);
+
+    double delta_left=left_pos-last_front_pos;
+    double delta_right=right_pos-last_back_pos;
+    double delta_center=(delta_left+delta_right)/2.0;
+    double delta_theta=Imu.heading(degrees)*M_PI/180.0+initial_heading;//from IMU (currheading-initial heading)-(last heading-initial heading)
+    ConstrainAngle(delta_theta);
+
+    double local_x=2*delta_center/delta_theta*sin(delta_theta/2.0);
+    double avg_theta=ODOMETRY_ANGLE+delta_theta/2.0;
+    ODOMETRY_X=delta_center*cos(ODOMETRY_ANGLE+avg_theta/2.0);
+    ODOMETRY_Y=delta_center*sin(ODOMETRY_ANGLE+avg_theta/2.0);
+    ODOMETRY_ANGLE+=delta_theta;
+    ConstrainAngle(ODOMETRY_ANGLE);
+
+    last_front_pos=left_pos;
+    last_back_pos=right_pos;
 }
 
 void odometry::ResetPosition()
