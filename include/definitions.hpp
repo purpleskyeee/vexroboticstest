@@ -38,12 +38,14 @@ extern vex::motor hoodMotor;
 
 extern pneumatics tonguemech;
 extern bool tonguemechdown;
+extern bool lasttonguepressstate;
 
 extern pneumatics park;
 extern bool parked;
 
 extern pneumatics rubberband;
 extern bool rubberbandon;
+extern bool lastbandpressstate;
 
 extern pneumatics middescore;
 extern bool middescoreon;

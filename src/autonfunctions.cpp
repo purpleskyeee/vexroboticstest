@@ -52,3 +52,154 @@ void pidTurn(double target)
         Left_Power=power;
     }
 }
+
+void awpautonrightred()
+{
+  tonguemech.close(); //put down tonguemech
+  pidForward(24); //forward 1 tile
+  pidTurn(-90); //face loader
+  pidForward(2); //go into loader
+  intakeMotor.spinFor(1,vex::timeUnits::sec); //intake for certain amount of time (just use movemotor group on this)
+  pidForward(1); //go into loader
+  intakeMotor.spinFor(1,vex::timeUnits::sec); //intake for certain amount of time (just use movemotor group on this)
+
+  pidForward(-24); //back 1 tile so aligner hits long goal
+  tonguemech.open();//put up tonguemech
+  intakeMotor.spinFor(2,vex::timeUnits::sec); //outtake on top for certain amount of time
+  hoodMotor.spinFor(2,vex::timeUnits::sec); //outtake on top for certain amount of time
+
+  pidTurn(-90); //turn to the dihhs
+  intakeMotor.spin(vex::directionType::fwd,128,vex::voltageUnits::mV); //start intake
+  pidForward(72); //collect all
+  intakeMotor.spin(vex::directionType::fwd,0,vex::voltageUnits::mV); //start intake
+
+  pidTurn(45); //butt face mid goal
+  rubberband.open(); //open middle scoring
+  intakeMotor.spinFor(2,vex::timeUnits::sec); //outtake mid for 3 ball time
+  rubberband.close(); //close mid scoring
+
+  tonguemech.close();//tonguemech down
+  pidForward(72); //go to 2nd loader
+  pidForward(2); //go into loader
+  intakeMotor.spinFor(1,vex::timeUnits::sec); //intake for certain amount of time (just use movemotor group on this)
+  pidForward(1); //go into loader
+  intakeMotor.spinFor(1,vex::timeUnits::sec); //intake for certain amount of time (just use movemotor group on this)
+
+  pidForward(-24); //to 2nd long goal
+  tonguemech.open();//put up tonguemech
+  intakeMotor.spinFor(2,vex::timeUnits::sec); //outtake on top for certain amount of time
+  hoodMotor.spinFor(2,vex::timeUnits::sec); //outtake on top for certain amount of time
+}
+
+void awpautonleftred()
+{
+  tonguemech.close(); //put down tonguemech
+  pidForward(24); //forward 1 tile
+  pidTurn(90); //face loader
+  pidForward(2); //go into loader
+  intakeMotor.spinFor(1,vex::timeUnits::sec); //intake for certain amount of time (just use movemotor group on this)
+  pidForward(1); //go into loader
+  intakeMotor.spinFor(1,vex::timeUnits::sec); //intake for certain amount of time (just use movemotor group on this)
+
+  pidForward(-24); //back 1 tile so aligner hits long goal
+  tonguemech.open();//put up tonguemech
+  intakeMotor.spinFor(2,vex::timeUnits::sec); //outtake on top for certain amount of time
+  hoodMotor.spinFor(2,vex::timeUnits::sec); //outtake on top for certain amount of time
+
+  pidTurn(-90); //turn to the dihhs
+  intakeMotor.spin(vex::directionType::fwd,128,vex::voltageUnits::mV); //start intake
+  pidForward(72); //collect all
+  intakeMotor.spin(vex::directionType::fwd,0,vex::voltageUnits::mV); //start intake
+
+  pidTurn(-45); //butt face mid goal
+  rubberband.open(); //open middle scoring
+  intakeMotor.spinFor(2,vex::timeUnits::sec); //outtake mid for 3 ball time
+  rubberband.close(); //close mid scoring
+
+  tonguemech.close();//tonguemech down
+  pidForward(72); //go to 2nd loader
+  pidForward(2); //go into loader
+  intakeMotor.spinFor(1,vex::timeUnits::sec); //intake for certain amount of time (just use movemotor group on this)
+  pidForward(1); //go into loader
+  intakeMotor.spinFor(1,vex::timeUnits::sec); //intake for certain amount of time (just use movemotor group on this)
+
+  pidForward(-24); //to 2nd long goal
+  tonguemech.open();//put up tonguemech
+  intakeMotor.spinFor(2,vex::timeUnits::sec); //outtake on top for certain amount of time
+  hoodMotor.spinFor(2,vex::timeUnits::sec); //outtake on top for certain amount of time
+}
+
+void awpautonleftblue()
+{
+  tonguemech.close(); //put down tonguemech
+  pidForward(24); //forward 1 tile
+  pidTurn(-90); //face loader
+  pidForward(2); //go into loader
+  intakeMotor.spinFor(1,vex::timeUnits::sec); //intake for certain amount of time (just use movemotor group on this)
+  pidForward(1); //go into loader
+  intakeMotor.spinFor(1,vex::timeUnits::sec); //intake for certain amount of time (just use movemotor group on this)
+
+  pidForward(-24); //back 1 tile so aligner hits long goal
+  tonguemech.open();//put up tonguemech
+  intakeMotor.spinFor(2,vex::timeUnits::sec); //outtake on top for certain amount of time
+  hoodMotor.spinFor(2,vex::timeUnits::sec); //outtake on top for certain amount of time
+
+  pidTurn(90); //turn to the dihhs
+  intakeMotor.spin(vex::directionType::fwd,128,vex::voltageUnits::mV); //start intake
+  pidForward(72); //collect all
+  intakeMotor.spin(vex::directionType::fwd,0,vex::voltageUnits::mV); //start intake
+
+  pidTurn(-45); //butt face mid goal
+  rubberband.open(); //open middle scoring
+  intakeMotor.spinFor(2,vex::timeUnits::sec); //outtake mid for 3 ball time 
+  rubberband.close(); //close mid scoring
+
+  tonguemech.close();//tonguemech down
+  pidForward(72); //go to 2nd loader
+  pidForward(2); //go into loader
+  intakeMotor.spinFor(1,vex::timeUnits::sec); //intake for certain amount of time (just use movemotor group on this)
+  pidForward(1); //go into loader
+  intakeMotor.spinFor(1,vex::timeUnits::sec); //intake for certain amount of time (just use movemotor group on this)
+
+  pidForward(-24); //to 2nd long goal
+  tonguemech.open();//put up tonguemech
+  intakeMotor.spinFor(2,vex::timeUnits::sec); //outtake on top for certain amount of time
+  hoodMotor.spinFor(2,vex::timeUnits::sec); //outtake on top for certain amount of time
+}
+
+void awpautonrightblue()
+{
+  tonguemech.close(); //put down tonguemech
+  pidForward(24); //forward 1 tile
+  pidTurn(-90); //face loader
+  pidForward(2); //go into loader
+  intakeMotor.spinFor(1,vex::timeUnits::sec); //intake for certain amount of time (just use movemotor group on this)
+  pidForward(1); //go into loader
+  intakeMotor.spinFor(1,vex::timeUnits::sec); //intake for certain amount of time (just use movemotor group on this)
+
+  pidForward(-24); //back 1 tile so aligner hits long goal
+  tonguemech.open();//put up tonguemech
+  intakeMotor.spinFor(2,vex::timeUnits::sec); //outtake on top for certain amount of time
+  hoodMotor.spinFor(2,vex::timeUnits::sec); //outtake on top for certain amount of time
+
+  pidTurn(-90); //turn to the dihhs
+  intakeMotor.spin(vex::directionType::fwd,128,vex::voltageUnits::mV); //start intake
+  pidForward(72); //collect all
+  intakeMotor.spin(vex::directionType::fwd,0,vex::voltageUnits::mV); //start intake
+
+  pidTurn(45); //butt face mid goal
+  rubberband.open(); //open middle scoring
+  intakeMotor.spinFor(2,vex::timeUnits::sec); //outtake mid for 3 ball time
+
+  tonguemech.close();//tonguemech down
+  pidForward(72); //go to 2nd loader
+  pidForward(2); //go into loader
+  intakeMotor.spinFor(1,vex::timeUnits::sec); //intake for certain amount of time (just use movemotor group on this)
+  pidForward(1); //go into loader
+  intakeMotor.spinFor(1,vex::timeUnits::sec); //intake for certain amount of time (just use movemotor group on this)
+
+  pidForward(-24); //to 2nd long goal
+  tonguemech.open();//put up tonguemech
+  intakeMotor.spinFor(2,vex::timeUnits::sec); //outtake on top for certain amount of time
+  hoodMotor.spinFor(2,vex::timeUnits::sec); //outtake on top for certain amount of time
+}

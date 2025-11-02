@@ -11,6 +11,7 @@ public:
     std::vector<vex::motor> leftMotors;
     std::vector<vex::motor> rightMotors;
     void movecntrl(std::vector<vex::motor>& motors, int pct);
+    void Reset();
 };
 
 #endif // BOT_HPP
