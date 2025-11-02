@@ -18,28 +18,32 @@ double axis1 = 0;
 double Left_Power = 0;
 double Right_Power = 0;
 
-// Motors (use vex::PORTx)
-vex::motor lm1 = vex::motor(vex::PORT1, vex::gearSetting::ratio6_1, true);
-vex::motor rm1 = vex::motor(vex::PORT11,  vex::gearSetting::ratio6_1, false);
-vex::motor lm2 = vex::motor(vex::PORT2,  vex::gearSetting::ratio6_1, true);
-vex::motor rm2 = vex::motor(vex::PORT12,  vex::gearSetting::ratio6_1, false);
-vex::motor lm3 = vex::motor(vex::PORT3,  vex::gearSetting::ratio6_1, true);
-vex::motor rm3 = vex::motor(vex::PORT13,  vex::gearSetting::ratio6_1, false);
+//1,2,10,15,4,3
+
+vex::motor lm1 = vex::motor(vex::PORT11, vex::gearSetting::ratio6_1, true); //11
+vex::motor rm1 = vex::motor(vex::PORT12,  vex::gearSetting::ratio6_1, false);//12
+vex::motor lm2 = vex::motor(vex::PORT13,  vex::gearSetting::ratio6_1, true);//13
+vex::motor rm2 = vex::motor(vex::PORT14,  vex::gearSetting::ratio6_1, false);//14
+vex::motor lm3 = vex::motor(vex::PORT15,  vex::gearSetting::ratio6_1, true);//15
+vex::motor rm3 = vex::motor(vex::PORT16,  vex::gearSetting::ratio6_1, false);//16
 
 std::vector<vex::motor> rightmotors = { rm1, rm2, rm3 };
 std::vector<vex::motor> leftmotors  = { lm1, lm2, lm3 };
 
-vex::motor intakeMotor = vex::motor(vex::PORT14, vex::gearSetting::ratio6_1, false);
-vex::motor hoodMotor = vex::motor(vex::PORT15, vex::gearSetting::ratio6_1, false);
+//12,11
+vex::motor intakeMotor = vex::motor(vex::PORT10, vex::gearSetting::ratio6_1, false);//10
+vex::motor hoodMotor = vex::motor(vex::PORT9, vex::gearSetting::ratio6_1, false);//9
 
-pneumatics tonguemech(Brain.ThreeWirePort.H); //temp
+pneumatics tonguemech(Brain.ThreeWirePort.C); 
 bool tonguemechdown=false;
+bool lasttonguepressstate=false;
 
 pneumatics park(Brain.ThreeWirePort.E); //temp
 bool parked=false;
 
-pneumatics rubberband(Brain.ThreeWirePort.F); //temp
+pneumatics rubberband(Brain.ThreeWirePort.B); 
 bool rubberbandon=false;
+bool lastbandpressstate=false;
 
 pneumatics middescore(Brain.ThreeWirePort.G); //temp
 bool middescoreon=false;
