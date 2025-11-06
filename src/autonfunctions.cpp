@@ -203,3 +203,19 @@ void awpautonrightblue()
   intakeMotor.spinFor(2,vex::timeUnits::sec); //outtake on top for certain amount of time
   hoodMotor.spinFor(2,vex::timeUnits::sec); //outtake on top for certain amount of time
 }
+
+void longgoalrushrightblue()
+{
+  tonguemech.close(); //put down tonguemech
+  pidForward(24); //forward 1 tile
+  pidTurn(-90); //face loader
+  pidForward(2); //go into loader
+  intakeMotor.spinFor(1,vex::timeUnits::sec); //intake for certain amount of time (just use movemotor group on this)
+  pidForward(1); //go into loader
+  intakeMotor.spinFor(1,vex::timeUnits::sec); //intake for certain amount of time (just use movemotor group on this)
+
+  pidForward(-24); //back 1 tile so aligner hits long goal
+  tonguemech.open();//put up tonguemech
+  intakeMotor.spinFor(2,vex::timeUnits::sec); //outtake on top for certain amount of time
+  hoodMotor.spinFor(2,vex::timeUnits::sec); //outtake on top for certain amount of time
+}

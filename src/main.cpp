@@ -70,8 +70,8 @@ void drivewhee()
   else tonguemech.open();
 
   lastbandpressstate=rubberbandtoggle;
-  if(rubberbandon) rubberband.open();
-  else rubberband.close();
+  if(rubberbandon) rubberband.close();
+  else rubberband.open();
 }
 
 int main() 

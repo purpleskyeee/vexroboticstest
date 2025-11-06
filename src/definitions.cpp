@@ -34,16 +34,16 @@ std::vector<vex::motor> leftmotors  = { lm1, lm2, lm3 };
 vex::motor intakeMotor = vex::motor(vex::PORT10, vex::gearSetting::ratio6_1, false);//10
 vex::motor hoodMotor = vex::motor(vex::PORT9, vex::gearSetting::ratio6_1, false);//9
 
-pneumatics tonguemech(Brain.ThreeWirePort.C); 
+pneumatics tonguemech(Brain.ThreeWirePort.B); 
 bool tonguemechdown=false;
 bool lasttonguepressstate=false;
 
 pneumatics park(Brain.ThreeWirePort.E); //temp
 bool parked=false;
 
-pneumatics rubberband(Brain.ThreeWirePort.B); 
-bool rubberbandon=false;
-bool lastbandpressstate=false;
+pneumatics rubberband(Brain.ThreeWirePort.C); 
+bool rubberbandon=true;
+bool lastbandpressstate=true;
 
 pneumatics middescore(Brain.ThreeWirePort.G); //temp
 bool middescoreon=false;
