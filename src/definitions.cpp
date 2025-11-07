@@ -48,6 +48,9 @@ bool lastbandpressstate=true;
 pneumatics middescore(Brain.ThreeWirePort.G); //temp
 bool middescoreon=false;
 
+bool lastdefensestate=false;
+int defensechange=1;
+
 vex::inertial Imu = vex::inertial(vex::PORT1);
 vex::rotation FRONTRotation = vex::rotation(vex::PORT5);
 vex::rotation BACKRotation  = vex::rotation(vex::PORT4);

@@ -50,6 +50,10 @@ extern bool lastbandpressstate;
 extern pneumatics middescore;
 extern bool middescoreon;
 
+extern bool defense;
+extern bool lastdefensestate;
+extern int defensechange;
+
 extern vex::inertial Imu;
 extern vex::rotation FRONTRotation;
 extern vex::rotation BACKRotation;
