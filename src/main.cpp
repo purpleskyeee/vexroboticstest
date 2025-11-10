@@ -5,14 +5,15 @@
 #include "autonfunctions.hpp"
 #include <iostream>
 #include <vector>
+#include <string>
 using namespace vex;
 
 competition Competition;
 
 void drivewhee()
 {
-  while(true)
-  {
+  //while(true)
+  //{
     axis3=Controller.Axis3.position();
     axis1=Controller.Axis1.position();
     Right_Power=axis3-defensechange*axis1;
@@ -36,7 +37,7 @@ void drivewhee()
     
     
 
-    std::cout<<"Axis Up: " << axis3 << ", Axis Left: " << axis1 << std::endl; // Print axis values for debugging
+    //std::cout<<"Axis Up: " << axis3 << ", Axis Left: " << axis1 << std::endl; // Print axis values for debugging
     // Use the controller axis values to control the motors
     bot.movecntrl(leftmotors,defensechange*Left_Power); // Move left motor 
     bot.movecntrl(rightmotors,defensechange*Right_Power); // Move right motor
@@ -85,8 +86,8 @@ void drivewhee()
     lastbandpressstate=rubberbandtoggle;
     if(rubberbandon) rubberband.close();
     else rubberband.open();
-    wait(20,vex::timeUnits::msec);
-  }
+    //wait(20,vex::timeUnits::msec);
+  //}
 }
 
 void auton(void)
@@ -104,20 +105,29 @@ int main()
 {
   // Prevent main from exiting with an infinite loop.
   Imu.calibrate(); //pause for 3 seconds
+  while(Imu.isCalibrating())
+  {
+    wait(100, msec);
+  }
   std::cout<<"Imu Calibrated"<<std::endl;
   bot.Reset();
 
   //auton();
 
   //Competition.autonomous(auton);
-  Competition.drivercontrol(drivewhee);
+  //Competition.drivercontrol(drivewhee);
 
+  pidForward(24);
+
+/*
   while (true)
   {
     Odom.CalculateWithoutTracking(); 
-    //drivewhee(); // Call the drive function to control the robot
-    std::cout<<"X: " << Odom.GetX() << ", Y: " << Odom.GetY() << ", Angle: " << Odom.GetAngle() << std::endl; // Print odometry values for debugging
-    wait(5, msec);
+    drivewhee(); // Call the drive function to control the robot
+    printf("imu angle = %f\n", Imu.heading(vex::rotationUnits::deg));
+    printf("X: %.2f, Y: %.2f, Angle: %.2f\n", Odom.GetX(), Odom.GetY(), Odom.GetAngle());
+    wait(20, msec); // Small delay to prevent wasted resources
   }
+  */
 
 }

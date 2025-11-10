@@ -51,11 +51,11 @@ bool middescoreon=false;
 bool lastdefensestate=false;
 int defensechange=1;
 
-vex::inertial Imu = vex::inertial(vex::PORT1);
+vex::inertial Imu = vex::inertial(vex::PORT20, vex::turnType::left);
 vex::rotation FRONTRotation = vex::rotation(vex::PORT5);
 vex::rotation BACKRotation  = vex::rotation(vex::PORT4);
 
-const double WHEEL_CIRCUMFERENCE = 3.75 * M_PI;
+const double WHEEL_CIRCUMFERENCE = 3.25 * M_PI;
 const double GEAR_RATIO = 48.0 / 36.0;
 const double MAX_VELOCITY = 128.0;
 const double OFFSETL = 0.5;

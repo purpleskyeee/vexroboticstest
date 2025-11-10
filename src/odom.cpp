@@ -55,17 +55,30 @@ void odometry::CalculateWithoutTracking()
 
     double delta_left=left_pos-last_front_pos;
     double delta_right=right_pos-last_back_pos;
-    double delta_center=(delta_left+delta_right)/2.0;
-    double delta_theta=Imu.heading(degrees)*M_PI/180.0+initial_heading;//from IMU (currheading-initial heading)-(last heading-initial heading)
+
+    double curr_theta=Imu.heading(degrees)*M_PI/180.0-initial_heading;
+    double delta_theta=curr_theta-ODOMETRY_ANGLE;
     ConstrainAngle(delta_theta);
 
-    double local_x=2*delta_center/delta_theta*sin(delta_theta/2.0);
-    double avg_theta=ODOMETRY_ANGLE+delta_theta/2.0;
-    ODOMETRY_X=delta_center*cos(ODOMETRY_ANGLE+avg_theta/2.0);
-    ODOMETRY_Y=delta_center*sin(ODOMETRY_ANGLE+avg_theta/2.0);
-    ODOMETRY_ANGLE+=delta_theta;
-    ConstrainAngle(ODOMETRY_ANGLE);
+    if(fabs(delta_theta)<1e-6)
+    {
+        double avg_distance = (delta_left + delta_right) / 2.0;
+        ODOMETRY_X += avg_distance * cos(ODOMETRY_ANGLE);
+        ODOMETRY_Y += avg_distance * sin(ODOMETRY_ANGLE);
+    }
+    else
+    {
+        double radius=(delta_right+delta_left)/(delta_theta*2.0);
+        double delta_y=radius*(sin(ODOMETRY_ANGLE+delta_theta)-sin(ODOMETRY_ANGLE));
+        double delta_x=-radius*(cos(ODOMETRY_ANGLE+delta_theta)-cos(ODOMETRY_ANGLE));
 
+        ODOMETRY_X+=delta_x;
+        ODOMETRY_Y+=delta_y;
+        ODOMETRY_ANGLE = curr_theta;
+        ConstrainAngle(ODOMETRY_ANGLE);
+        // printf("odom angle = %f\n", ODOMETRY_ANGLE);
+        // printf("DX: %.2f, DY: %f, DAngle: %f\n", delta_x, delta_y, delta_theta);
+    }
     last_front_pos=left_pos;
     last_back_pos=right_pos;
 }

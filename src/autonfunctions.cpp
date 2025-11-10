@@ -14,14 +14,21 @@ void pidForward(double target)
     double currentright=0;
     while(!pid_forward.Arrived())
     {
-        currentleft=Odom.encoder_to_inches(leftmotors[0].position(deg));
-        currentright=Odom.encoder_to_inches(rightmotors[0].position(deg));
+      currentleft=Odom.encoder_to_inches(leftmotors[0].position(deg));
+      currentright=Odom.encoder_to_inches(rightmotors[0].position(deg));
 
-        double currtrav=((currentleft-startleft)+(currentright-startright))/2.0;
-        double power=pid_forward.calculatepower(currtrav);
-        Right_Power=power;
-        Left_Power=power;
+      double currtrav=((currentleft-startleft)+(currentright-startright))/2.0;
+      double power=pid_forward.calculatepower(currtrav);
+      Right_Power=power;
+      Left_Power=power;
+      
+      bot.movecntrl(leftmotors,Left_Power);
+      bot.movecntrl(rightmotors,Right_Power);
+      wait(20,msec);
     }
+
+    bot.movecntrl(leftmotors,0);
+    bot.movecntrl(rightmotors,0);
 }
 
 void turnconstrainangle(double& angle)
@@ -33,7 +40,7 @@ void turnconstrainangle(double& angle)
 void pidTurn(double target)
 {
     double startheading=Odom.GetAngle();
-    target/=180*M_PI;
+    target*=M_PI/180;
     turnconstrainangle(target);
     turnconstrainangle(startheading);
     double currentheading=0;
@@ -43,14 +50,21 @@ void pidTurn(double target)
 
     while(!pid_turn.Arrived())
     {
-        currentheading=Odom.GetAngle();
-        double currturn=currentheading-startheading;
-        turnconstrainangle(currturn);
+      currentheading=Odom.GetAngle();
+      double currturn=currentheading-startheading;
+      turnconstrainangle(currturn);
 
-        double power=pid_turn.calculatepower(currturn);
-        Right_Power=-power; //opposite power so it turns
-        Left_Power=power;
+      double power=pid_turn.calculatepower(currturn);
+      Right_Power=-power; //opposite power so it turns
+      Left_Power=power;
+
+      bot.movecntrl(leftmotors,Left_Power);
+      bot.movecntrl(rightmotors,Right_Power);
+      wait(20,msec);
     }
+
+    bot.movecntrl(leftmotors,0);
+    bot.movecntrl(rightmotors,0);
 }
 
 void awpautonrightred()

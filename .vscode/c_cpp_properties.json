@@ -17,7 +17,8 @@
 		{
 			"name": "Win32",
 			"includePath": [
-				"${vex_sdkIncludes}"
+				"${vex_sdkIncludes}",
+				"/Users/niuniu/Library/Application Support/Code/User/globalStorage/vexrobotics.vexcode/sdk/cpp/V5/V5_20240802_15_00_00/vexv5/gcc/include/c++/4.9.3/bits"
 			],
 			"compilerPath": "${vex_compilerPath}",
 			"cStandard": "gnu99",
