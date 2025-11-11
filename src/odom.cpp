@@ -7,7 +7,7 @@
 using namespace vex;
 
 double odometry::encoder_to_inches(double encoder_counts) {
-    return (encoder_counts / 360.0) * GEAR_RATIO * WHEEL_CIRCUMFERENCE;
+    return (encoder_counts / 300.0) * GEAR_RATIO * WHEEL_CIRCUMFERENCE;
 }
 
 double odometry::GetX() { return ODOMETRY_X; }

@@ -17,8 +17,8 @@ public:
 
     bool arrived;
     //constructor
-    PID(double kp, double kd, double ki, double error_range, double gamma)
-        : kp(kp), kd(kd), ki(ki), error_range(error_range), last_error(0), integral(0), gamma(gamma), leastpower(0), maxpower(100), target(0), arrived(false) {}
+    PID(double kp, double ki, double kd, double error_range, double gamma)
+        : kp(kp), ki(ki), kd(kd), error_range(error_range), last_error(0), integral(0), gamma(gamma), leastpower(10), maxpower(50), target(0), arrived(false) {}
 
     void reset();
     

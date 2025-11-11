@@ -11,9 +11,10 @@ void PID::reset()
   last_error=0; 
   integral=0; 
   gamma=0; 
-  leastpower=0; 
-  maxpower=100; 
+  leastpower=10; 
+  maxpower=50;
   target=0;
+  arrived=false;
 }
 
 void PID::SetTarget(double t) { target=t; }
@@ -27,14 +28,16 @@ double PID::calculatepower(double currpos)
   if(power > maxpower) power = maxpower; // Limit power to maximum value
   if(power < leastpower) power = leastpower; // Limit power to minimum value
 
-  if (fabs(error) < error_range) // Check if the motor position is less than target
+  printf("out %f %f\n",fabs(error),error_range);
+  if (fabs(error) <= error_range) // Check if the motor position is less than target
   {
+    printf("in %f %f\n",fabs(error),error_range);
     arrived = true;
     power=0;
   }
   else
   {
-    last_error = currpos - target; // Calculate the error
+    last_error = error; // Update error
     integral=(integral+last_error)*gamma; //calculate the integral with adjustments to keep integral value low
   }
   return power;

@@ -7,8 +7,8 @@ vex::brain Brain = vex::brain();
 
 // Bot / PID / Odometry instances
 Bot bot;
-PID pid_forward(66.0, 66.0, 66.0, 50.0, 0.9);
-PID pid_turn(66.0, 66.0, 66.0, 50.0, 0.9);
+PID pid_forward(5, 10.0, 50.0, 1, 1); //double kp, double ki, double kd, double error_range, double gamma
+PID pid_turn(5, 10.0, 50.0, 1, 1);
 odometry Odom(0.0,0.0,0.0); // Initialize odometry at (0,0) with 0 angle
 
 // Controller axes (keep initialized at 0; update at runtime)
@@ -56,7 +56,7 @@ vex::rotation FRONTRotation = vex::rotation(vex::PORT5);
 vex::rotation BACKRotation  = vex::rotation(vex::PORT4);
 
 const double WHEEL_CIRCUMFERENCE = 3.25 * M_PI;
-const double GEAR_RATIO = 48.0 / 36.0;
+const double GEAR_RATIO = 36.0 / 48.0;
 const double MAX_VELOCITY = 128.0;
 const double OFFSETL = 0.5;
 const double OFFSETB = 16.0;

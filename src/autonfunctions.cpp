@@ -4,31 +4,31 @@
 
 void pidForward(double target)
 {
-    double startleft=Odom.encoder_to_inches(leftmotors[0].position(deg));
-    double startright=Odom.encoder_to_inches(rightmotors[0].position(deg));
+  //pid_forward.reset();
+  pid_forward.SetTarget(target);
 
-    pid_forward.reset();
-    pid_forward.SetTarget(target);
+  double startleft=Odom.encoder_to_inches(leftmotors[0].position(deg));
+  double startright=Odom.encoder_to_inches(rightmotors[0].position(deg));
+  double currentleft=0;
+  double currentright=0;
+  while(!pid_forward.Arrived())
+  {
+    currentleft=Odom.encoder_to_inches(leftmotors[0].position(deg));
+    currentright=Odom.encoder_to_inches(rightmotors[0].position(deg));
+    double currtrav=((currentleft-startleft)+(currentright-startright))/2.0;
+    double power=pid_forward.calculatepower(currtrav);
+    Right_Power=power;
+    Left_Power=power;
+    
+    bot.movecntrl(leftmotors,Left_Power);
+    bot.movecntrl(rightmotors,Right_Power);
 
-    double currentleft=0;
-    double currentright=0;
-    while(!pid_forward.Arrived())
-    {
-      currentleft=Odom.encoder_to_inches(leftmotors[0].position(deg));
-      currentright=Odom.encoder_to_inches(rightmotors[0].position(deg));
+    printf("%d %f %f %f %f\n",pid_forward.Arrived(),currtrav,power,currentleft,currentright);
+    wait(5,msec);
+  }
 
-      double currtrav=((currentleft-startleft)+(currentright-startright))/2.0;
-      double power=pid_forward.calculatepower(currtrav);
-      Right_Power=power;
-      Left_Power=power;
-      
-      bot.movecntrl(leftmotors,Left_Power);
-      bot.movecntrl(rightmotors,Right_Power);
-      wait(20,msec);
-    }
-
-    bot.movecntrl(leftmotors,0);
-    bot.movecntrl(rightmotors,0);
+  bot.movecntrl(leftmotors,0);
+  bot.movecntrl(rightmotors,0);
 }
 
 void turnconstrainangle(double& angle)
@@ -44,13 +44,11 @@ void pidTurn(double target)
     turnconstrainangle(target);
     turnconstrainangle(startheading);
     double currentheading=0;
-
-    pid_turn.reset();
     pid_turn.SetTarget(target);
 
     while(!pid_turn.Arrived())
     {
-      currentheading=Odom.GetAngle();
+      currentheading=Imu.heading(degrees)*M_PI/180.0;
       double currturn=currentheading-startheading;
       turnconstrainangle(currturn);
 
@@ -60,7 +58,9 @@ void pidTurn(double target)
 
       bot.movecntrl(leftmotors,Left_Power);
       bot.movecntrl(rightmotors,Right_Power);
-      wait(20,msec);
+
+      printf("%d %f %f\n", pid_turn.Arrived(),currturn,power);
+      wait(5,msec);
     }
 
     bot.movecntrl(leftmotors,0);
