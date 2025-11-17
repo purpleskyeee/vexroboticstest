@@ -4,6 +4,7 @@
 	],
 	"files.associations": {
 		"iostream": "cpp",
-		"vector": "cpp"
+		"vector": "cpp",
+		"fstream": "cpp"
 	}
 }

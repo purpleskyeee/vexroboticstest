@@ -39,27 +39,30 @@ void turnconstrainangle(double& angle)
 
 void pidTurn(double target)
 {
-    double startheading=Odom.GetAngle();
+    double startheading=Imu.heading(degrees)*M_PI/180.0;
     target*=M_PI/180;
-    turnconstrainangle(target);
-    turnconstrainangle(startheading);
-    double currentheading=0;
+    double lastheading=startheading;
+    double turned=0.0;
     pid_turn.SetTarget(target);
 
     while(!pid_turn.Arrived())
     {
-      currentheading=Imu.heading(degrees)*M_PI/180.0;
-      double currturn=currentheading-startheading;
-      turnconstrainangle(currturn);
+      double currentheading=Imu.heading(degrees)*M_PI/180.0;
+      double delta_theta=currentheading-lastheading;
+      turnconstrainangle(delta_theta);
 
-      double power=pid_turn.calculatepower(currturn);
+      turned+=delta_theta;
+      //turnconstrainangle(turned);
+      lastheading=currentheading;
+
+      double power=pid_turn.calculatepower(turned);
       Right_Power=-power; //opposite power so it turns
       Left_Power=power;
 
       bot.movecntrl(leftmotors,Left_Power);
       bot.movecntrl(rightmotors,Right_Power);
 
-      printf("%d %f %f\n", pid_turn.Arrived(),currturn,power);
+      printf("%d %f %f\n", pid_turn.Arrived(),turned,power);
       wait(5,msec);
     }
 

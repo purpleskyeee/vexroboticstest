@@ -50,6 +50,10 @@ extern bool lastbandpressstate;
 extern pneumatics middescore;
 extern bool middescoreon;
 
+extern pneumatics hood;
+extern bool lasthoodpressstate;
+extern bool hoodup;
+
 extern bool defense;
 extern bool lastdefensestate;
 extern int defensechange;

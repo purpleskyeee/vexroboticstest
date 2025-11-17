@@ -8,7 +8,7 @@ vex::brain Brain = vex::brain();
 // Bot / PID / Odometry instances
 Bot bot;
 PID pid_forward(5, 10.0, 50.0, 1, 1); //double kp, double ki, double kd, double error_range, double gamma
-PID pid_turn(5, 10.0, 50.0, 1, 1);
+PID pid_turn(2, 0, 10.0, 3, 1);
 odometry Odom(0.0,0.0,0.0); // Initialize odometry at (0,0) with 0 angle
 
 // Controller axes (keep initialized at 0; update at runtime)
@@ -47,6 +47,10 @@ bool lastbandpressstate=true;
 
 pneumatics middescore(Brain.ThreeWirePort.G); //temp
 bool middescoreon=false;
+
+pneumatics hood(Brain.ThreeWirePort.D);
+bool lasthoodpressstate=false;
+bool hoodup=false;
 
 bool lastdefensestate=false;
 int defensechange=1;

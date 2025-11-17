@@ -24,12 +24,13 @@ void drivewhee()
     if(Left_Power<-128) Left_Power=-128;
     bool intakebutnoscore=Controller.ButtonR1.pressing(); // Check if the intake button is pressed
     bool score=Controller.ButtonR2.pressing(); // Check if the outtake button is pressed
-    bool tonguemechtoggle=Controller.ButtonL2.pressing(); // Check if the hood toggle button is
+    //bool tonguemechtoggle=Controller.ButtonL2.pressing(); // tongue
     bool outtake=Controller.ButtonL1.pressing();
 
     bool rubberbandtoggle=Controller.ButtonY.pressing(); // Check if the rubberband toggle button is pressed
     //bool middescoretoggle=Controller.ButtonA.pressing(); // Check if the middescore toggle button is pressed
     bool parking=Controller.ButtonX.pressing(); // Check if the parking button is pressed
+    bool hoodtoggle=Controller.ButtonL2.pressing();
 
     bool defensing=Controller.ButtonA.pressing();
 
@@ -61,11 +62,18 @@ void drivewhee()
       hoodMotor.stop(); // Stop hood motor
       intakeMotor.stop(); // Stop intake motors
     }
-    
+    /*
     if(tonguemechtoggle!=lasttonguepressstate)
     {
-      if(tonguemechdown) tonguemechdown=false;
-      else tonguemechdown=true;
+      if(tonguemechdown) tonguemechdown=false; //false for tongue
+      else tonguemechdown=true; //true for tongue
+    }
+    */
+
+    if(hoodtoggle!=lasthoodpressstate)
+    {
+      if(hoodup) hoodup=false;
+      else hoodup=true;
     }
 
     if(rubberbandtoggle!=lastbandpressstate)
@@ -79,9 +87,15 @@ void drivewhee()
       defensechange*=-1;
     }
 
+    lasthoodpressstate=hoodtoggle;
+    if(!hoodup) hood.close();
+    else hood.open();
+
+    /*
     lasttonguepressstate=tonguemechtoggle;
-    if(tonguemechdown) tonguemech.close();
+    if(tonguemechdown) tonguemech.close(); 
     else tonguemech.open();
+    */
 
     lastbandpressstate=rubberbandtoggle;
     if(rubberbandon) rubberband.close();
@@ -117,9 +131,9 @@ int main()
   //Competition.autonomous(auton);
   //Competition.drivercontrol(drivewhee);
 
-  pidTurn(180);
+  //pidTurn(180);
 
-/*
+  
   while (true)
   {
     Odom.CalculateWithoutTracking(); 
@@ -128,6 +142,6 @@ int main()
     printf("X: %.2f, Y: %.2f, Angle: %.2f\n", Odom.GetX(), Odom.GetY(), Odom.GetAngle());
     wait(20, msec); // Small delay to prevent wasted resources
   }
-  */
+  
 
 }
