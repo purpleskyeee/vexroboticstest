@@ -62,7 +62,7 @@ void pidTurn(double target)
       bot.movecntrl(leftmotors,Left_Power);
       bot.movecntrl(rightmotors,Right_Power);
 
-      printf("%d %f %f\n", pid_turn.Arrived(),turned,power);
+      printf("current_deg: %.1f, cumulative: %.2f, target: %.2f, delta: %.3f, power: %.1f, arrived: %d\n", currentheading * 180/M_PI, turned * 180/M_PI, target * 180/M_PI, delta_theta * 180/M_PI, power, pid_turn.Arrived());
       wait(5,msec);
     }
 
