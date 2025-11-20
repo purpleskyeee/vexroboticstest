@@ -28,9 +28,11 @@ void drivewhee()
     bool outtake=Controller.ButtonL1.pressing();
 
     bool rubberbandtoggle=Controller.ButtonY.pressing(); // Check if the rubberband toggle button is pressed
-    bool middescoretoggle=Controller.ButtonX.pressing(); // Check if the middescore toggle button is pressed
+    bool middescoretoggle=Controller.ButtonRight.pressing(); // Check if the middescore toggle button is pressed'
+    bool sidedescoretoggle=Controller.ButtonDown.pressing();
     //bool parking=Controller.ButtonX.pressing(); // Check if the parking button is pressed
     bool defensing=Controller.ButtonA.pressing();
+
 
     
     
@@ -82,8 +84,14 @@ void drivewhee()
 
     if(middescoretoggle!=lastdescorepressstate)
     {
-      if(middescoretoggle) middescoretoggle=false;
-      else middescoretoggle=true;
+      if(middescoreon) middescoreon=false;
+      else middescoreon=true;
+    }
+
+    if(sidedescoretoggle!=lastsiddescorestate)
+    {
+      if(descoreup) descoreup=false;
+      else descoreup=true;
     }
 
     if(defensing!=lastdefensestate)
@@ -102,6 +110,10 @@ void drivewhee()
     lastdescorepressstate=middescoretoggle;
     if(middescoreon) middescore.open();
     else middescore.close();
+
+    lastsiddescorestate=sidedescoretoggle;
+    if(descoreup) sidedescore.open();
+    else sidedescore.close();
 
     printf("%d", middescoreon);
 

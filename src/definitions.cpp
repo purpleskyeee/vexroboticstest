@@ -21,7 +21,7 @@ double Right_Power = 0;
 //1,2,10,15,4,3
 
 vex::motor lm1 = vex::motor(vex::PORT11, vex::gearSetting::ratio6_1, true); //11
-vex::motor rm1 = vex::motor(vex::PORT12,  vex::gearSetting::ratio6_1, false);//12
+vex::motor rm1 = vex::motor(vex::PORT18,  vex::gearSetting::ratio6_1, false);//12
 vex::motor lm2 = vex::motor(vex::PORT13,  vex::gearSetting::ratio6_1, true);//13
 vex::motor rm2 = vex::motor(vex::PORT14,  vex::gearSetting::ratio6_1, false);//14
 vex::motor lm3 = vex::motor(vex::PORT15,  vex::gearSetting::ratio6_1, true);//15
@@ -49,9 +49,9 @@ pneumatics middescore(Brain.ThreeWirePort.E); //temp
 bool lastdescorepressstate=false;
 bool middescoreon=false;
 
-pneumatics hood(Brain.ThreeWirePort.D);
-bool lasthoodpressstate=false;
-bool hoodup=false;
+pneumatics sidedescore(Brain.ThreeWirePort.F);
+bool lastsiddescorestate=false;
+bool descoreup=false;
 
 bool lastdefensestate=false;
 int defensechange=1;

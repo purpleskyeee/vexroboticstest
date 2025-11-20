@@ -51,9 +51,9 @@ extern pneumatics middescore;
 extern bool lastdescorepressstate;
 extern bool middescoreon;
 
-extern pneumatics hood;
-extern bool lasthoodpressstate;
-extern bool hoodup;
+extern pneumatics sidedescore;
+extern bool lastsiddescorestate;
+extern bool descoreup;
 
 extern bool defense;
 extern bool lastdefensestate;
