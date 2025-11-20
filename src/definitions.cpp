@@ -45,7 +45,8 @@ pneumatics rubberband(Brain.ThreeWirePort.C);
 bool rubberbandon=true;
 bool lastbandpressstate=true;
 
-pneumatics middescore(Brain.ThreeWirePort.G); //temp
+pneumatics middescore(Brain.ThreeWirePort.E); //temp
+bool lastdescorepressstate=false;
 bool middescoreon=false;
 
 pneumatics hood(Brain.ThreeWirePort.D);

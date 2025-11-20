@@ -24,14 +24,12 @@ void drivewhee()
     if(Left_Power<-128) Left_Power=-128;
     bool intakebutnoscore=Controller.ButtonR1.pressing(); // Check if the intake button is pressed
     bool score=Controller.ButtonR2.pressing(); // Check if the outtake button is pressed
-    //bool tonguemechtoggle=Controller.ButtonL2.pressing(); // tongue
+    bool tonguemechtoggle=Controller.ButtonL2.pressing(); // tongue
     bool outtake=Controller.ButtonL1.pressing();
 
     bool rubberbandtoggle=Controller.ButtonY.pressing(); // Check if the rubberband toggle button is pressed
-    //bool middescoretoggle=Controller.ButtonA.pressing(); // Check if the middescore toggle button is pressed
-    bool parking=Controller.ButtonX.pressing(); // Check if the parking button is pressed
-    bool hoodtoggle=Controller.ButtonL2.pressing();
-
+    bool middescoretoggle=Controller.ButtonX.pressing(); // Check if the middescore toggle button is pressed
+    //bool parking=Controller.ButtonX.pressing(); // Check if the parking button is pressed
     bool defensing=Controller.ButtonA.pressing();
 
     
@@ -70,10 +68,10 @@ void drivewhee()
     }
     */
 
-    if(hoodtoggle!=lasthoodpressstate)
+    if(tonguemechtoggle!=lasttonguepressstate)
     {
-      if(hoodup) hoodup=false;
-      else hoodup=true;
+      if(tonguemechdown) tonguemechdown=false;
+      else tonguemechdown=true;
     }
 
     if(rubberbandtoggle!=lastbandpressstate)
@@ -82,24 +80,31 @@ void drivewhee()
       else rubberbandon=true;
     }
 
+    if(middescoretoggle!=lastdescorepressstate)
+    {
+      if(middescoretoggle) middescoretoggle=false;
+      else middescoretoggle=true;
+    }
+
     if(defensing!=lastdefensestate)
     {
       defensechange*=-1;
     }
 
-    lasthoodpressstate=hoodtoggle;
-    if(!hoodup) hood.close();
-    else hood.open();
-
-    /*
     lasttonguepressstate=tonguemechtoggle;
     if(tonguemechdown) tonguemech.close(); 
     else tonguemech.open();
-    */
 
     lastbandpressstate=rubberbandtoggle;
     if(rubberbandon) rubberband.close();
     else rubberband.open();
+
+    lastdescorepressstate=middescoretoggle;
+    if(middescoreon) middescore.open();
+    else middescore.close();
+
+    printf("%d", middescoreon);
+
     //wait(20,vex::timeUnits::msec);
   //}
 }

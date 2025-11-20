@@ -48,6 +48,7 @@ extern bool rubberbandon;
 extern bool lastbandpressstate;
 
 extern pneumatics middescore;
+extern bool lastdescorepressstate;
 extern bool middescoreon;
 
 extern pneumatics hood;
